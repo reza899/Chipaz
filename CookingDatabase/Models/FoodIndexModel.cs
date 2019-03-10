@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace CookingDatabase.Models
 {
-    public enum Maden
+    public class FoodIndexModel
     {
-        None=0,
-        Iranian=1,
-        Foreign=2
+        public IEnumerable<Food> Foods { get; set; }
+        public  MadenType Maden { get; set; }
     }
 }

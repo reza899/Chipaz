@@ -11,7 +11,7 @@ namespace CookingDatabase.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Maden Maden { get; set; }
+        public MadenType Maden { get; set; }
         public IList<FoodCategory> foodCategories { get; set; }
     }
 }

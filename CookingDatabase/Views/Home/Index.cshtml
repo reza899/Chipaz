@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CookingDatabase.Models.Food>
+﻿@model FoodIndexModel
 @{ 
     Layout = "_Layout";
 }
@@ -12,11 +12,8 @@
         <input type="text" value="@ViewData["search"]"  name="search" placeholder="Search" class="form-control" />
         <button type="submit" class="ml-1 btn btn-outline-info">Search</button>
 
-        <select id="madenid" name="Maden" class="form-control">
-            <option value="None">None</option>
-            <option value="Iranian">Iranian</option>
-            <option value="Foreign">Foreign</option>
-        </select>
+       <select asp-for="Maden" asp-items="@Html.GetEnumSelectList<MadenType>()" class="form-control">
+</select>
 </form>
 </div>
 
@@ -38,7 +35,7 @@
     <tbody>
        
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.Foods)
             {
         <tr>
             <td>@item.Id</td>

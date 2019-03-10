@@ -17,7 +17,7 @@ namespace CookingDatabase.Controllers
             this.context = context;
         }
         public IActionResult Index(string search="",OrderType order=OrderType.Name,
-            SortType sort= SortType.Asc,Maden maden= Maden.None)
+            SortType sort= SortType.Asc,MadenType maden= MadenType.None)
         {
             IEnumerable<Food> data;
             if (string.IsNullOrWhiteSpace(search))
@@ -51,14 +51,20 @@ namespace CookingDatabase.Controllers
                 sort = SortType.Desc;
             }
 
-            if(maden!=Maden.None)
+            if(maden!=MadenType.None)
             {
                 data = data.Where(x => x.Maden == maden);
             }
             ViewData["sort"] = sort;
             ViewData["search"] = search;
             ViewData["maden"] = maden;
-            return View(data);
+
+            var vm = new FoodIndexModel()
+            {
+                Foods = data,
+                Maden = maden
+            };
+            return View(vm);
         }
 
 
