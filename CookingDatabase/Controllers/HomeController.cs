@@ -10,6 +10,7 @@ namespace CookingDatabase.Controllers
 {
     public class HomeController:Controller
     {
+        const int PageSize = 2;
         private readonly CookingDbContext context;
 
         public HomeController(CookingDbContext context)
@@ -17,7 +18,7 @@ namespace CookingDatabase.Controllers
             this.context = context;
         }
         public IActionResult Index(string search="",OrderType order=OrderType.Name,
-            SortType sort= SortType.Asc,MadenType maden= MadenType.None)
+            SortType sort= SortType.Asc,MadenType maden= MadenType.None,int PageNumber=1)
         {
             IEnumerable<Food> data;
             if (string.IsNullOrWhiteSpace(search))
@@ -55,14 +56,19 @@ namespace CookingDatabase.Controllers
             {
                 data = data.Where(x => x.Maden == maden);
             }
-            ViewData["sort"] = sort;
-            ViewData["search"] = search;
-            ViewData["maden"] = maden;
+            var count = data.Count();
+           data= data.Skip((PageNumber - 1) * PageSize).Take(PageSize);
 
             var vm = new FoodIndexModel()
             {
                 Foods = data,
-                Maden = maden
+                Maden = maden,
+                Sort=sort,
+                Search=search,
+                PageNumber=PageNumber,
+                PageSize=PageSize,
+                PageCount=count/PageSize+1,
+                Order=order
             };
             return View(vm);
         }

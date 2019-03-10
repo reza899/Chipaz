@@ -1,6 +1,7 @@
 ﻿@model FoodIndexModel
-@{ 
+@{
     Layout = "_Layout";
+    var i = (Model.PageNumber - 1) * Model.PageSize + 1;
 }
 
 <h1>Food List</h1>
@@ -9,22 +10,21 @@
 <a class="btn btn-success" asp-action="create">Create new Food</a>
 <div class="mt-2 mb-2">
     <form asp-action="Index" method="get" class="form-inline">
-        <input type="text" value="@ViewData["search"]"  name="search" placeholder="Search" class="form-control" />
+        <input type="text" value="@Model.Search" name="search" placeholder="Search" class="form-control" />
         <button type="submit" class="ml-1 btn btn-outline-info">Search</button>
 
-       <select asp-for="Maden" asp-items="@Html.GetEnumSelectList<MadenType>()" class="form-control">
-</select>
-</form>
+        <select asp-for="Maden" asp-items="@Html.GetEnumSelectList<MadenType>()" class="form-control"></select>
+    </form>
 </div>
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>
-                <a class="btn btn-link" asp-action="Index" asp-route-order="Id" asp-route-search="@ViewData["search"]" asp-route-sort="@ViewData["sort"]"> Id</a>
+                <a class="btn btn-link" asp-action="Index" asp-route-order="Id" asp-route-search="@Model.Search" asp-route-sort="@Model.Sort"> Id</a>
             </th>
             <th>
-              <a asp-action="Index" asp-route-order="Name" asp-route-search="@ViewData["search"]" asp-route-sort="@ViewData["sort"]" class="btn btn-link">Name</a>
+                <a asp-action="Index" asp-route-order="Name" asp-route-search="@Model.Search" asp-route-sort="@Model.Sort" class="btn btn-link">Name</a>
             </th>
             <th>
                 Desc
@@ -33,34 +33,49 @@
         </tr>
     </thead>
     <tbody>
-       
 
-            @foreach (var item in Model.Foods)
-            {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-            <td>@item.Description</td>
-            <td>@item.Maden</td>
-            <td>
-                <div>
-                    <a class="btn btn-info" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
-                    <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </div>
-            </td>
 
-        </tr>
+        @foreach (var item in Model.Foods)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Maden</td>
+                <td>
+                    <div>
+                        <a class="btn btn-info" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
+                        <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
+                </td>
 
-            }
+            </tr>
+            i++;
+        }
 
-</tbody>
+    </tbody>
 </table>
+@for (int j = 1; j <= Model.PageCount; j++)
+{
+    <a asp-action="Index" asp-route-pagenumber="@j" asp-route-order="@Model.Order"  asp-route-search="@Model.Search" asp-route-sort="@Model.Sort" class="@GetPageClass(Model.PageNumber,j)">@j</a>
+}
+
+@functions{
+    private string GetPageClass(int pageNumber,int currentPage)
+    {
+        if (pageNumber == currentPage)
+            return "btn btn-success";
+        else
+            return "btn btn-outline-info";
+    }
+}
+
 
 @section Scripts{
-<script>
+    <script>
     $(document).ready(function () {
         $("#madenid").val("@ViewData["maden"]");
     })
-</script>
+    </script>
 }
