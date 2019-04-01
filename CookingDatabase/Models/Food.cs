@@ -13,5 +13,6 @@ namespace CookingDatabase.Models
         public string Description { get; set; }
         public MadenType Maden { get; set; }
         public IList<FoodCategory> foodCategories { get; set; }
+        public string Image { get; set; }
     }
 }

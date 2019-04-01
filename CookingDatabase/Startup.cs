@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CookingDatabase.Models;
+using CookingDatabase.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace CookingDatabase
 {
@@ -25,6 +27,16 @@ namespace CookingDatabase
         {
             services.AddMvc();
             services.AddDbContext<CookingDbContext>(opt => opt.UseSqlite(configuration.GetConnectionString("sqlcon")));
+            services.AddDbContext<IdentityContext>(opt => opt.UseSqlite(configuration.GetConnectionString("sqlcon")));
+            // services.AddIdentity<CookingUser,CookingRole>().AddDefaultUI().AddEntityFrameworkStores<IdentityContext>();
+            services.AddDefaultIdentity<CookingUser>()
+         .AddRoles<CookingRole>()
+         .AddEntityFrameworkStores<IdentityContext>()
+         .AddUserManager<UserManager<CookingUser>>()
+         .AddRoleManager<RoleManager<CookingRole>>()
+         .AddDefaultTokenProviders();
+
+            //  services.Add(new ServiceDescriptor(typeof(CookingRole), new CookingRole, ServiceLifetime.Scoped));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -34,11 +46,14 @@ namespace CookingDatabase
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles();
+            app.UseAuthentication();
+            
             app.UseMvc(cfg =>
             {
                 cfg.MapRoute(name: "default",
                     template: "{Controller=Home}/{Action=Index}/{Id?}");
             });
+            app.UseWelcomePage();
         }
     }
 }

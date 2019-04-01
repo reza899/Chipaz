@@ -20,8 +20,12 @@
 <table class="table table-striped">
     <thead>
         <tr>
+
             <th>
                 <a class="btn btn-link" asp-action="Index" asp-route-order="Id" asp-route-search="@Model.Search" asp-route-sort="@Model.Sort"> Id</a>
+            </th>
+            <th>
+                Image
             </th>
             <th>
                 <a asp-action="Index" asp-route-order="Name" asp-route-search="@Model.Search" asp-route-sort="@Model.Sort" class="btn btn-link">Name</a>
@@ -29,7 +33,9 @@
             <th>
                 Desc
             </th>
-            <th></th>
+            <th>
+
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -37,20 +43,21 @@
 
         @foreach (var item in Model.Foods)
         {
-            <tr>
-                <td>@i</td>
-                <td>@item.Name</td>
-                <td>@item.Description</td>
-                <td>@item.Maden</td>
-                <td>
-                    <div>
-                        <a class="btn btn-info" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
-                        <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </div>
-                </td>
+        <tr>
+            <td>@i</td>
+            <td><img src="@item.Image" height="200" width="200" class="img-fluid img-thumbnail"/></td>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@item.Maden</td>
+            <td>
+                <div>
+                    <a class="btn btn-info" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
+                    <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
+            </td>
 
-            </tr>
+        </tr>
             i++;
         }
 

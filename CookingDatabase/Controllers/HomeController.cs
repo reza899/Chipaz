@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CookingDatabase.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class HomeController:Controller
     {
-        const int PageSize = 2;
+        const int PageSize = 10;
         private readonly CookingDbContext context;
 
         public HomeController(CookingDbContext context)
