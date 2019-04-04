@@ -14,5 +14,6 @@ namespace CookingDatabase.Models
         public MadenType Maden { get; set; }
         public IList<FoodCategory> foodCategories { get; set; }
         public string Image { get; set; }
+        public decimal Price { get; set; }
     }
 }

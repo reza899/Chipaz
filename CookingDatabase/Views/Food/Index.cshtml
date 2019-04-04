@@ -8,7 +8,8 @@
 
 @foreach (var item in Model)
 {
-    <img src="@item.Image" alt="@item.Name" />
-    <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.Id"><strong>@item.Name</strong></a>
+<partial name="_CookingItems" model="item" />
     <hr />
 }
+
+

@@ -1,0 +1,16 @@
+﻿@model Food
+
+<div class="d-flex bd-highlight">
+    <div class="p-2 flex-fill bd-highlight">
+        <img src="@Model.Image" alt="@Model.Name" class="img-thumbnail"/>
+    </div>
+    <div class="p-2 flex-fill bd-highlight">
+        <strong>@Model.Description</strong>
+    </div>
+    <div class="p-2 flex-fill bd-highlight">
+        <a asp-action="More" asp-controller="Food" asp-route-id="@Model.Id" class="btn btn-info"><strong>@Model.Name</strong></a>
+    </div>
+    <div class="p-2 flex-fill bd-highlight">
+        <a asp-action="Create" asp-controller="Order" asp-route-id="@Model.Id" class="btn btn-success"><strong>Order</strong></a>
+    </div>
+</div>

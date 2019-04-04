@@ -1,0 +1,39 @@
+﻿@model Food
+
+@{
+    ViewData["Title"] = "More About "+Model.Name;
+    Layout = "_Layout";
+}
+
+<h1>More About @Model.Name</h1>
+
+<div>
+   
+
+    <img src="@Model.Image" alt="@Model.Name" />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(m => m.Maden)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(m => m.Maden)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -17,5 +17,6 @@ namespace CookingDatabase.Models
 
         public DbSet<Food> Foods { get; set; }
         public DbSet<FoodCategory> FoodCategories { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

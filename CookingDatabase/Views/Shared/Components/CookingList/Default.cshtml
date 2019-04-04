@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Food>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <partial name="_CookingItemsThumb" model="item" />
+
+    }
+    </div>

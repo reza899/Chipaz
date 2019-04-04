@@ -4,7 +4,11 @@
     var i = (Model.PageNumber - 1) * Model.PageSize + 1;
 }
 
+
+
 <h1>Food List</h1>
+
+@await Component.InvokeAsync("CookingList")
 
 <hr />
 <a class="btn btn-success" asp-action="create">Create new Food</a>
@@ -41,19 +45,19 @@
     <tbody>
 
 
-        @foreach (var item in Model.Foods)
+        @foreach (var Model in Model.Foods)
         {
         <tr>
             <td>@i</td>
-            <td><img src="@item.Image" height="200" width="200" class="img-fluid img-thumbnail"/></td>
-            <td>@item.Name</td>
-            <td>@item.Description</td>
-            <td>@item.Maden</td>
+            <td><img src="@Model.Image" height="200" width="200" class="img-fluid img-thumbnail"/></td>
+            <td>@Model.Name</td>
+            <td>@Model.Description</td>
+            <td>@Model.Maden</td>
             <td>
                 <div>
-                    <a class="btn btn-info" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
-                    <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-info" asp-action="Detail" asp-route-id="@Model.Id">Detail</a>
+                    <a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
                 </div>
             </td>
 

@@ -3,14 +3,16 @@ using System;
 using CookingDatabase.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CookingDatabase.Migrations
 {
     [DbContext(typeof(CookingDbContext))]
-    partial class CookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("13980115141557_AddingOrder")]
+    partial class AddingOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,8 +30,6 @@ namespace CookingDatabase.Migrations
                     b.Property<int>("Maden");
 
                     b.Property<string>("Name");
-
-                    b.Property<decimal>("Price");
 
                     b.HasKey("Id");
 
